@@ -11,26 +11,34 @@ function merge(firstHalf, secondHalf) {
 	var pointerFirst = 0;
 	var pointerSecond = 0;
 
-	while (pointerFirst < firstHalf.length-1 && pointerSecond < secondHalf.length-1) {
-		console.log("pointerFirst: ", pointerFirst, " pointerSecond: ", pointerSecond);
+	while (pointerFirst < firstHalf.length && pointerSecond < secondHalf.length) {
 		if (firstHalf[pointerFirst] < secondHalf[pointerSecond]) {
 			returnArray.push(firstHalf[pointerFirst]);
-			// if its at the last one, don't increment
-			if (!pointerFirst === firstHalf.length-1) {
-				pointerFirst++;
-			}
+			pointerFirst++;
 			
 		} else {
 			returnArray.push(secondHalf[pointerSecond]);
-			if (!pointerSecond === firstSecond.length-1) {
-				pointerSecond++;
-			}
+			pointerSecond++;
 		}
+	}
+	if (pointerFirst === firstHalf.length) {
+		returnArray = returnArray.concat(secondHalf.slice(pointerSecond, secondHalf.length));
+	}
+	if (pointerSecond === secondHalf.length) {
+		returnArray = returnArray.concat(firstHalf.slice(pointerFirst, firstHalf.length));
 	}
 	return returnArray;
 }
 
 
-function mergeSort() {
-
+function mergeSort(array) {
+	if (array.length<=1) {
+		return array;
+	}
+	
+	return merge(mergeSort(split(array)[0]), mergeSort(split(array)[1]));
 }
+
+
+
+
